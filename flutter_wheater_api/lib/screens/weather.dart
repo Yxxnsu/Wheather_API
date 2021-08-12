@@ -27,7 +27,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
   late double temp;
   late Widget icons;
   late String description;
-  late Widget airIcon;
+  late Widget airIcon; 
+  late double dust1;
+  late double dust2;
   var date = DateTime.now();
 
   @override
@@ -46,8 +48,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
     icons = model.getWeatherIcon(condition);
 
     int index = airData['list'][0]['main']['aqi'];
+    dust1 = airData['list'][0]['components']['pm10'];
+    dust2 = airData['list'][0]['components']['pm2_5'];
     airIcon = model.getAirIcon(index);
-    
+
     print(airData);
     print(weatherData);
 
@@ -214,14 +218,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              Image.asset(
-                                'assets/bad.png',
-                                width: 37,
-                                height: 35,                                  
+                              Text(
+                                '$dust1',
+                                style: GoogleFonts.lato(
+                                  fontSize: 24.0,
+                                  color: Colors.white,
+                                ),
                               ),
                               SizedBox(height: 10,),
                               Text(
-                                '매우나쁨',
+                                '㎍/m3',
                                 style: GoogleFonts.lato(
                                   fontSize: 14,
                                   color: Colors.white,
@@ -240,9 +246,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               ),
                               SizedBox(height: 10,),
                               Text(
-                                '174.45',
+                                '$dust2',
                                 style: GoogleFonts.lato(
-                                  fontSize: 24,
+                                  fontSize: 24.0,
                                   color: Colors.white,
                                 ),
                               ),
